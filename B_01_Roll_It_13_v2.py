@@ -115,27 +115,29 @@ comp_score = 0
 
 num_rounds = 0
 
-# create lists to hold user and computer scores
+# create lists to hold user scores, computer scores and game history
 user_scores = []
 comp_scores = []
+game_history = []
 
+# Program starts here (with a heading)
 print()
 print("🎲🎲 Roll it 13 🎲🎲")
 print()
 
-# loop for testing purposes
-
+# Display instructions if user wants to see them.
 want_instructions = yes_no("Do you want to read the instructions? ")
 
-# checks users enter yes (y) or no (n)
 if want_instructions == "yes":
     instruction()
 
+# Get target score (must be an integer more than 13)
 print()
-
 target_score = int_check("Enter a target score: ")
 print()
 
+
+# Loop game until we have a winner
 while user_score < target_score and comp_score < target_score:
     # Add one to the number of rounds (for our heading)
     num_rounds += 1
@@ -275,6 +277,10 @@ while user_score < target_score and comp_score < target_score:
 
         add_points = user_points
 
+    # Record round result and add it to the game history
+    round_result = f"Round {num_rounds} - User: {user_points} \t Computer: {computer_points}"
+    game_history.append(round_result)
+
     # end of a single round
 
     # If the computer wins, add its points to its score
@@ -311,6 +317,17 @@ else:
 print(f"Final Scores: User ({user_score}) vs Computer ({comp_score})")
 print()
 
+# Display game history if user wants to see it
+show_history = yes_no("Do you want to see the game history?")
+
+if show_history == "yes":
+    print("\n⌛⌛⌛ Game History⌛⌛⌛")
+
+    for item in game_history:
+        print(item)
+
+print()
+
 # calculate the lowest, highest and average
 # scores and display them.
 
@@ -320,11 +337,11 @@ comp_stats = get_stats(comp_scores)
 print("📊📊📊 Game Statistics 📊📊📊 ")
 print(f"User     - Lowest Score: {user_stats[0]}\t "
       f"Highest Score: {user_stats[1]}\t "
-      f"Average Scores: {user_stats[2]:.2f}")
+      f"Average Score: {user_stats[2]:.2f}")
 
 print(f"Computer - Lowest Score: {comp_stats[0]}\t "
       f"Highest Score: {comp_stats[1]}\t "
-      f"Average Scores: {comp_stats[2]:.2f}")
+      f"Average Score: {comp_stats[2]:.2f}")
 
 print()
 print("Thank you for playing.")
